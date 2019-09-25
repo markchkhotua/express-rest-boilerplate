@@ -61,4 +61,7 @@ typings/
 
 # next.js build output
 .next
+.babelrc
+.env
+package-lock.json
 
