@@ -1,0 +1,10 @@
+{
+    "presets": [
+      ["env", {
+        "targets": {
+          "node": "11.15.0"
+        },
+        "loose": true
+      }]
+    ]
+  }
