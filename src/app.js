@@ -2,7 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import favicon from 'serve-favicon';
 import path from 'path';
-import rateLimit from 'express-rate-limit';9
+import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
