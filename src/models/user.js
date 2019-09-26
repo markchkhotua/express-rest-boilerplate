@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import {userConstatns} from '../constants';
 
-const User = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     firstName: {
       type: DataTypes.STRING,
@@ -31,15 +31,15 @@ const User = (sequelize, DataTypes) => {
       type: DataTypes.ENUM(userConstatns.role.ADMIN, userConstatns.role.USER),
       notEmpty: true,
       allowNull: false,
-      defaultValue: role.USER,
+      defaultValue: userConstatns.role.USER,
     },
     status: {
       type: DataTypes.ENUM(userConstatns.status.ACTIVE, userConstatns.status.DISABLED, userConstatns.status.PENDING),
-      defaultValue: status.PENDING,
+      defaultValue: userConstatns.status.PENDING,
     },
   });
 
-  User.hook('beforeCreate', (user) => {
+  User.beforeCreate((user) => {
     const {password} = user;
     user.password = bcrypt.hashSync(password, 10);
   });
@@ -47,4 +47,3 @@ const User = (sequelize, DataTypes) => {
   return User;
 };
 
-export default User;

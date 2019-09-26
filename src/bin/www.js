@@ -5,6 +5,7 @@
  */
 import app from '../app';
 import debug from 'debug';
+import models from '../models';
 import http from 'http';
 debug('express-rest-boilerplate:server');
 
@@ -18,13 +19,6 @@ app.set('port', port);
  * Create HTTP server.
  */
 const server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -85,3 +79,12 @@ function onListening() {
     'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ * Sync DB and start app, listening on provided port, on all network interfaces.
+ */
+models.sequelize.sync().then(() => {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
