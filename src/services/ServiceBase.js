@@ -1,5 +1,6 @@
 import LIVR from 'livr';
 import Exception from '../exceptions/Exception';
+import exceptionCodes from '../constants/exception';
 
 /**
  * Base class for all services
@@ -10,7 +11,7 @@ export default class ServiceBase {
    * @param {Object} args - arguments, passed to service constructor
    */
   constructor(args) {
-    if (!args.context) throw new Error('CONTEXT_REQUIRED');
+    if (!args.context) throw new Error(exceptionCodes.CONTEXT_REQUIRED);
     this.context = args.context;
   }
 
@@ -67,7 +68,7 @@ export default class ServiceBase {
 
     if (!result) {
       throw new Exception({
-        code: 'FORMAT_ERROR',
+        code: exceptionCodes.FORMAT_ERROR,
         fields: validator.getErrors(),
       });
     }

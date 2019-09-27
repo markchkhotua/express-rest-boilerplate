@@ -16,8 +16,6 @@ class ServiceManager {
     defaultContextBuilder = (req) => cloneDeep(req.session && req.session.context ? req.session.context : {}),
     defaultLogger = consoleLogger,
   }) {
-    console.log('qwe');
-
     this.defaultParamsBuilder = defaultParamsBuilder;
     this.defaultContextBuilder = defaultContextBuilder;
     this.defaultLogger = defaultLogger;
@@ -74,4 +72,4 @@ function cloneDeep(data) {
   return JSON.parse(JSON.stringify(data));
 }
 
-export default new ServiceManager();
+export default new ServiceManager({});
