@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import {dbConfig} from '../config';
+import {db as config} from '../config';
 
 const basename = path.basename(__filename);
 const db = {};
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  ...dbConfig,
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+  ...config,
   logging: false,
 });
 

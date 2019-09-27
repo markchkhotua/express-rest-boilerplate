@@ -66,3 +66,4 @@ dist/
 
 .idea/
 package-lock.json
+logs

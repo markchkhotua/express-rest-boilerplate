@@ -1,12 +1,13 @@
 import {Router} from 'express';
-import {userController} from '../controllers';
+import {user} from '../controllers';
+import {routes} from '../config';
 
 const router = Router();
 
-router.post('/create', userController.create.create);
-router.post('/create-bulk', userController.create.bulkCreate);
-
-router.put('/update', userController.update.update);
-router.put('/update-bulk', userController.update.bulkUpdate);
+router.post(routes.user.create, user.create);
+router.put(routes.user.update, user.update);
+router.delete(routes.user.delete, user.delete);
+router.get(routes.user.list, user.list);
+router.get(routes.user.show, user.show);
 
 export default router;
