@@ -3,14 +3,16 @@ import models from '../../models';
 import Exception from '../../exceptions/Exception';
 import exceptionCodes from '../../constants/exception';
 import {dump} from '../../utils';
+import {userConstatns} from '../../constants';
 
 /**
- * Service for updating users
+ * Service for listing users
  */
 export default class UsersUpdate extends ServiceBase {
     static validationRules = {
-      data: ['required', 'not_empty'],
-      id: ['required', 'positive_integer'],
+      firstName: 'string',
+      lastName: 'string',
+      role: {one_of: [userConstatns.role.USER, userConstatns.role.ADMIN]},
     };
 
     /**
@@ -20,8 +22,8 @@ export default class UsersUpdate extends ServiceBase {
      */
     async execute(data) {
       const {User} = models;
-      const {data: userData, id} = data;
-      if (!await User.findOne({where: {id}})) {
+      const users = await User.findAll({where: {...data}});
+      if (!users.length) {
         throw new Exception({
           code: exceptionCodes.NOT_FOUND,
           fields: {
@@ -29,7 +31,6 @@ export default class UsersUpdate extends ServiceBase {
           },
         });
       }
-      const [, [user]] = await User.update(userData, {where: {id}, returning: true});
-      return {data: dump.user.dump(user)};
+      return {data: dump.user.dumpAll(users)};
     }
 }

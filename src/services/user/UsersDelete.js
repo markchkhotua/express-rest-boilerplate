@@ -5,11 +5,10 @@ import exceptionCodes from '../../constants/exception';
 import {dump} from '../../utils';
 
 /**
- * Service for updating users
+ * Service for deleting users
  */
-export default class UsersUpdate extends ServiceBase {
+export default class UsersDelete extends ServiceBase {
     static validationRules = {
-      data: ['required', 'not_empty'],
       id: ['required', 'positive_integer'],
     };
 
@@ -20,7 +19,7 @@ export default class UsersUpdate extends ServiceBase {
      */
     async execute(data) {
       const {User} = models;
-      const {data: userData, id} = data;
+      const {id} = data;
       if (!await User.findOne({where: {id}})) {
         throw new Exception({
           code: exceptionCodes.NOT_FOUND,
@@ -29,7 +28,7 @@ export default class UsersUpdate extends ServiceBase {
           },
         });
       }
-      const [, [user]] = await User.update(userData, {where: {id}, returning: true});
-      return {data: dump.user.dump(user)};
+      const user = await User.destroy({where: {id}});
+      return {data: dump.user.dumpDelete(user)};
     }
 }

@@ -3,8 +3,8 @@ export default {
     root: '/user',
     create: '/create',
     update: '/update/:id',
-    delete: '/delete',
+    delete: '/delete/:id',
     list: '/list',
-    show: '/show',
+    show: '/show/:id',
   },
 };

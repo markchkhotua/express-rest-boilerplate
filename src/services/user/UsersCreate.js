@@ -1,5 +1,5 @@
 import ServiceBase from '../ServiceBase';
-import {User} from '../../models';
+import models from '../../models';
 import {userConstatns} from '../../constants';
 import Exception from '../../exceptions/Exception';
 import {dump} from '../../utils';
@@ -10,20 +10,29 @@ import exceptionCodes from '../../constants/exception';
  */
 export default class UsersCreate extends ServiceBase {
     static validationRules = {
-      firstName: 'required',
-      lastName: 'required',
-      email: ['required', 'email'],
-      password: ['required', {min_length: 10}],
-      role: {one_of: [userConstatns.role.USER, userConstatns.role.ADMIN]},
+      data: ['required',
+        {
+          'nested_object':
+                {
+                  firstName: ['required', 'string'],
+                  lastName: ['required', 'string'],
+                  email: ['required', 'email'],
+                  password: ['required', {min_length: 10}],
+                  role: {one_of: [userConstatns.role.USER, userConstatns.role.ADMIN]},
+                },
+        },
+      ],
     };
 
     /**
-   * Service execution
-   * @param {Object} data
-   * @return {Object}
-   */
+     * Service execution
+     * @param {Object} data
+     * @return {Object}
+     */
     async execute(data) {
-      if (await User.findOne({where: {id: data.id}})) {
+      const {User} = models;
+      const userData = data.data;
+      if (await User.findOne({where: {email: userData.email}})) {
         throw new Exception({
           code: exceptionCodes.NOT_UNIQUE,
           fields: {
@@ -31,7 +40,7 @@ export default class UsersCreate extends ServiceBase {
           },
         });
       }
-      const user = User.create(data);
+      const user = await User.create(userData);
       return {data: dump.user.dump(user)};
     }
 }

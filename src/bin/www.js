@@ -87,4 +87,5 @@ models.sequelize.sync().then(() => {
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
+  console.log(`Listening on ${port}`);
 });

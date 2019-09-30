@@ -11,6 +11,6 @@ router.get('/', (req, res, next) => {
   res.send('Welcome to Express Rest Boilerplate');
 });
 
-router.get(routes.user.root, userRoutes);
+router.use(routes.user.root, userRoutes);
 
 export default router;
