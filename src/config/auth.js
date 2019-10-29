@@ -1,3 +1,4 @@
 export default {
-  username: process.env.AUTH_KEY || 'QINRO!zs|%|5Pte;mp!+NQnR`Z/c>e',
+  jwtSecret: process.env.JWT_SECRET || 'QINRO!zs|%|5Pte;mp!+NQnR`Z/c>e',
+  iss: process.env.ISS || 'thebraveio',
 };

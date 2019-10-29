@@ -5,12 +5,17 @@ import path from 'path';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import passport from 'passport';
+
+import './passport/passportJwt';
+import './passport/passportLocal';
 
 import indexRouter from './routes';
 import rfs from 'rotating-file-stream';
 
 const app = express();
 
+app.use(passport.initialize());
 app.use(rateLimit({
   windowMs: 15 * 60 * 100,
   max: 1000,

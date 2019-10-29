@@ -1,6 +1,6 @@
 import ServiceBase from '../ServiceBase';
 import models from '../../models';
-import {userConstatns} from '../../constants';
+import {userConstants} from '../../constants';
 import Exception from '../../exceptions/Exception';
 import {dump} from '../../utils';
 import exceptionCodes from '../../constants/exception';
@@ -18,7 +18,7 @@ export default class UsersCreate extends ServiceBase {
                   lastName: ['required', 'string'],
                   email: ['required', 'email'],
                   password: ['required', {min_length: 10}],
-                  role: {one_of: [userConstatns.role.USER, userConstatns.role.ADMIN]},
+                  role: {one_of: [userConstants.role.USER, userConstants.role.ADMIN]},
                 },
         },
       ],

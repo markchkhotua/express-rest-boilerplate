@@ -3,7 +3,7 @@ import models from '../../models';
 import Exception from '../../exceptions/Exception';
 import exceptionCodes from '../../constants/exception';
 import {dump} from '../../utils';
-import {userConstatns} from '../../constants';
+import {userConstants} from '../../constants';
 
 /**
  * Service for listing users
@@ -12,7 +12,7 @@ export default class UsersUpdate extends ServiceBase {
     static validationRules = {
       firstName: 'string',
       lastName: 'string',
-      role: {one_of: [userConstatns.role.USER, userConstatns.role.ADMIN]},
+      role: {one_of: [userConstants.role.USER, userConstants.role.ADMIN]},
     };
 
     /**

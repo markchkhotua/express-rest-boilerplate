@@ -7,4 +7,9 @@ export default {
     list: '/list',
     show: '/show/:id',
   },
+  auth: {
+    root: '/auth',
+    signIn: '/sign-in',
+    checkToken: '/check-token',
+  },
 };

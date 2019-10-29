@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import {userConstatns} from '../constants';
+import {userConstants} from '../constants';
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -28,14 +28,15 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM(userConstatns.role.ADMIN, userConstatns.role.USER),
+      type: DataTypes.ENUM(userConstants.role.ADMIN, userConstants.role.USER),
       notEmpty: true,
       allowNull: false,
-      defaultValue: userConstatns.role.USER,
+      defaultValue: userConstants.role.USER,
     },
     status: {
-      type: DataTypes.ENUM(userConstatns.status.ACTIVE, userConstatns.status.DISABLED, userConstatns.status.PENDING),
-      defaultValue: userConstatns.status.PENDING,
+      type: DataTypes.ENUM(userConstants.status.ACTIVE, userConstants.status.DISABLED,
+          userConstants.status.PENDING, userConstants.status.DELETED),
+      defaultValue: userConstants.status.PENDING,
     },
   });
 
